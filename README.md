@@ -43,39 +43,41 @@ A full-stack data pipeline and interactive dashboard that tracks financial news 
 ---
 
 ## 📁 Project Structure
+
+```
 sentiment_screener/
-├── app.py                          # Main entry point
-├── main.py                         # Full data pipeline runner
-├── config.py                       # All settings (tickers, thresholds, colors)
-├── run_daily.bat                   # Windows automation script
+│
+├── app.py                           # Main entry point
+├── main.py                          # Full data pipeline runner
+├── config.py                        # All settings (tickers, thresholds, colors)
+├── run_daily.bat                    # Windows automation script
 ├── requirements.txt
-├── .env                            # API keys (not committed to git)
+├── .env                             # API keys (not committed to git)
 ├── .gitignore
 │
 ├── collectors/
-│   ├── yfinance_news_collector.py  # Fetches news from Yahoo Finance
-│   ├── news_collector.py           # Fetches headlines from NewsAPI
-│   └── price_collector.py          # Fetches OHLCV price data
+│   ├── yfinance_news_collector.py   # Fetches news from Yahoo Finance
+│   ├── news_collector.py            # Fetches headlines from NewsAPI
+│   └── price_collector.py           # Fetches OHLCV price data
 │
 ├── processing/
-│   ├── text_cleaner.py             # Removes URLs and noise from text
-│   ├── sentiment_analyzer.py       # VADER scoring and daily aggregation
-│   ├── run_sentiment.py            # Runs sentiment pipeline for a ticker
-│   ├── merge.py                    # Joins sentiment and price data
-│   └── correlation.py              # Pearson correlation with p-value
+│   ├── text_cleaner.py              # Removes URLs and noise from text
+│   ├── sentiment_analyzer.py        # VADER scoring and daily aggregation
+│   ├── run_sentiment.py             # Runs sentiment pipeline for a ticker
+│   ├── merge.py                     # Joins sentiment and price data
+│   └── correlation.py               # Pearson correlation with p-value
 │
 ├── database/
-│   └── db.py                       # SQLite read/write helpers
+│   └── db.py                        # SQLite read/write helpers
 │
 ├── pages/
-│   ├── 1_Single_Stock.py           # Single ticker analysis page
-│   ├── 2_Comparison.py             # Multi-stock comparison page
-│   └── 3_Sector_Overview.py        # Sector sentiment and Fear & Greed
+│   ├── 1_Single_Stock.py            # Single ticker analysis page
+│   ├── 2_Comparison.py              # Multi-stock comparison page
+│   └── 3_Sector_Overview.py         # Sector sentiment and Fear & Greed
 │
 └── data/
-└── screener.db                 # SQLite database (not committed to git)
-
----
+    └── screener.db                  # SQLite database (not committed to git)
+```
 
 ## ⚙️ Setup & Installation
 
