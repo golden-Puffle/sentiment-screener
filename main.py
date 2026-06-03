@@ -3,6 +3,7 @@ from collectors.news_collector import fetch_news
 from collectors.price_collector import fetch_prices
 from database.db import save_dataframe
 from processing.run_sentiment import run_for_ticker
+from config import ALL_TICKERS
 
 def full_pipeline(ticker, company_name):
     print(f"\n=== Running full pipeline for {ticker} ===")
@@ -12,6 +13,5 @@ def full_pipeline(ticker, company_name):
     run_for_ticker(ticker)
 
 if __name__ == "__main__":
-    full_pipeline("NVDA", "Nvidia")
-    full_pipeline("AAPL", "Apple")
-    full_pipeline("TSLA", "Tesla")
+    for ticker, company_name in ALL_TICKERS.items():
+        full_pipeline(ticker, company_name)
