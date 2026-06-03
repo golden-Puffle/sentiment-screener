@@ -1,3 +1,12 @@
+import os
+from main import full_pipeline
+from config import ALL_TICKERS
+
+if not os.path.exists("data/screener.db"):
+    st.info("First run — collecting data. This takes about 2 minutes...")
+    for ticker, company in ALL_TICKERS.items():
+        full_pipeline(ticker, company)
+    st.rerun()
 import streamlit as st
 
 st.set_page_config(
