@@ -136,7 +136,7 @@ else:
     all_news['published_at'] = pd.to_datetime(all_news['published_at'], utc=True)
 
     for _, move_row in big_moves.iterrows():
-        move_date = pd.to_datetime(move_row['Date'])
+        move_date = pd.to_datetime(move_row['Date']).tz_localize('UTC')
         direction = "📈" if move_row['pct_change'] > 0 else "📉"
         color = "green" if move_row['pct_change'] > 0 else "red"
 
