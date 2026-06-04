@@ -1,6 +1,5 @@
 import os
 import streamlit as st
-from main import full_pipeline
 from config import ALL_TICKERS
 
 st.set_page_config(
@@ -9,16 +8,10 @@ st.set_page_config(
     layout="wide"
 )
 
-
 st.title("📈 Stock Sentiment Screener")
-st.markdown("""
-Analyze financial news sentiment and correlate it with stock price movements.
-Use the sidebar to navigate between pages.
-""")
-
-st.info("👈 Select a page from the sidebar to get started")
+st.markdown("Analyze financial news sentiment and correlate it with stock price movements.")
 
 col1, col2, col3 = st.columns(3)
 col1.metric("Data Sources", "2", "yfinance + NewsAPI")
-col2.metric("Tickers Available", "12")
-col3.metric("Max Comparison", "4 stocks")
+col2.metric("Tickers Available", str(len(ALL_TICKERS)))
+col3.metric("Max Stocks Comparable Simultaneously", "4")
