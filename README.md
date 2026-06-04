@@ -125,7 +125,7 @@ Adding a new ticker requires exactly one line in `config.py`. No other files nee
 
 ---
 
-## ⚠️ Known Limitations & Honest Observations
+## ⚠️ Known Limitations 
 
 - **NewsAPI free tier** is limited to 30 days of history, which constrains the correlation analysis. Running the daily automation script over several weeks builds up more meaningful data
 - **Headlines do not always explain price moves** — stock prices can lag news by days or weeks due to delayed market reactions, macro policy effects, or sentiment already being priced in. The headline explainer feature surfaces possible contributing factors, not guaranteed causes
