@@ -76,19 +76,38 @@ if all_sentiments:
         }
     ))
 
-    # Add zone labels as annotations along the arc
-    fig_gauge.add_annotation(x=0.08, y=0.25, text="Extreme<br>Fear", showarrow=False,
-                              font=dict(size=10, color="#FF4444"), xref="paper", yref="paper")
-    fig_gauge.add_annotation(x=0.22, y=0.55, text="Fear", showarrow=False,
-                              font=dict(size=10, color="#FF9800"), xref="paper", yref="paper")
-    fig_gauge.add_annotation(x=0.5, y=0.72, text="Neutral", showarrow=False,
-                              font=dict(size=10, color="#888888"), xref="paper", yref="paper")
-    fig_gauge.add_annotation(x=0.78, y=0.55, text="Greed", showarrow=False,
-                              font=dict(size=10, color="#8BC34A"), xref="paper", yref="paper")
-    fig_gauge.add_annotation(x=0.92, y=0.25, text="Extreme<br>Greed", showarrow=False,
-                              font=dict(size=10, color="#00C805"), xref="paper", yref="paper")
+# Add zone labels as annotations outside the arc for clarity
+    fig_gauge.add_annotation(
+        x=0.02, y=0.05, text="Extreme Fear",
+        showarrow=False, font=dict(size=9, color="#FF4444"),
+        xref="paper", yref="paper", align="center"
+    )
+    fig_gauge.add_annotation(
+        x=0.18, y=0.42, text="Fear",
+        showarrow=False, font=dict(size=9, color="#FF9800"),
+        xref="paper", yref="paper", align="center"
+    )
+    fig_gauge.add_annotation(
+        x=0.5, y=0.82, text="Neutral",
+        showarrow=False, font=dict(size=9, color="#AAAAAA"),
+        xref="paper", yref="paper", align="center"
+    )
+    fig_gauge.add_annotation(
+        x=0.82, y=0.42, text="Greed",
+        showarrow=False, font=dict(size=9, color="#8BC34A"),
+        xref="paper", yref="paper", align="center"
+    )
+    fig_gauge.add_annotation(
+        x=0.98, y=0.05, text="Extreme Greed",
+        showarrow=False, font=dict(size=9, color="#00C805"),
+        xref="paper", yref="paper", align="center"
+    )
 
-    fig_gauge.update_layout(height=350)
+    # Single update_layout — removed duplicate
+    fig_gauge.update_layout(
+        height=400,
+        margin=dict(t=80, b=60, l=80, r=80)
+    )
     col2.plotly_chart(fig_gauge, use_container_width=True)
 
 st.markdown("---")
