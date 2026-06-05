@@ -45,70 +45,62 @@ if all_sentiments:
         label = "Extreme Fear 😱"
         color = "#FF4444"
 
-    col1, col2 = st.columns([1, 2])
-    col1.metric("Market Sentiment", f"{fear_greed_score}/100", label)
+    col1, col2, col3 = st.columns([1, 2, 1])
 
-    # Gauge with zone labels along the arc
-    fig_gauge = go.Figure(go.Indicator(
-        mode="gauge+number",
-        value=fear_greed_score,
-        title={'text': label, 'font': {'size': 18}},
-        number={'font': {'size': 40}},
-        gauge={
-            'axis': {
-                'range': [-100, 100],
-                'tickvals': [-100, -60, -20, 20, 60, 100],
-                'ticktext': ['-100', '-60', '-20', '20', '60', '100'],
-            },
-            'bar': {'color': color, 'thickness': 0.3},
-            'steps': [
-                {'range': [-100, -60], 'color': '#FF4444'},
-                {'range': [-60, -20], 'color': '#FF9800'},
-                {'range': [-20, 20],  'color': '#888888'},
-                {'range': [20, 60],   'color': '#8BC34A'},
-                {'range': [60, 100],  'color': '#00C805'},
-            ],
-            'threshold': {
-                'line': {'color': "white", 'width': 3},
-                'thickness': 0.8,
-                'value': fear_greed_score
+    # Left column — score and label
+    with col1:
+        st.markdown(f"""
+        <div style='text-align:center;padding-top:40px'>
+            <p style='color:gray;margin-bottom:4px'>Market Sentiment</p>
+            <h1 style='margin:0;color:{color}'>{fear_greed_score}</h1>
+            <p style='color:{color};font-size:18px;margin-top:8px'>{label}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # Middle column — gauge (no number displayed)
+    with col2:
+        fig_gauge = go.Figure(go.Indicator(
+            mode="gauge",  # removed 'number' so score doesn't show inside gauge
+            value=fear_greed_score,
+            gauge={
+                'axis': {
+                    'range': [-100, 100],
+                    'tickvals': [-100, -60, -20, 20, 60, 100],
+                    'ticktext': ['-100', '-60', '-20', '20', '60', '100'],
+                },
+                'bar': {'color': color, 'thickness': 0.3},
+                'steps': [
+                    {'range': [-100, -60], 'color': '#FF4444'},
+                    {'range': [-60, -20], 'color': '#FF9800'},
+                    {'range': [-20, 20],  'color': '#888888'},
+                    {'range': [20, 60],   'color': '#8BC34A'},
+                    {'range': [60, 100],  'color': '#00C805'},
+                ],
+                'threshold': {
+                    'line': {'color': "white", 'width': 3},
+                    'thickness': 0.8,
+                    'value': fear_greed_score
+                }
             }
-        }
-    ))
+        ))
+        fig_gauge.update_layout(
+            height=300,
+            margin=dict(t=20, b=20, l=20, r=20)
+        )
+        st.plotly_chart(fig_gauge, use_container_width=True)
 
-# Add zone labels as annotations outside the arc for clarity
-    fig_gauge.add_annotation(
-        x=0.02, y=0.05, text="Extreme Fear",
-        showarrow=False, font=dict(size=9, color="#FF4444"),
-        xref="paper", yref="paper", align="center"
-    )
-    fig_gauge.add_annotation(
-        x=0.18, y=0.42, text="Fear",
-        showarrow=False, font=dict(size=9, color="#FF9800"),
-        xref="paper", yref="paper", align="center"
-    )
-    fig_gauge.add_annotation(
-        x=0.5, y=0.82, text="Neutral",
-        showarrow=False, font=dict(size=9, color="#AAAAAA"),
-        xref="paper", yref="paper", align="center"
-    )
-    fig_gauge.add_annotation(
-        x=0.82, y=0.42, text="Greed",
-        showarrow=False, font=dict(size=9, color="#8BC34A"),
-        xref="paper", yref="paper", align="center"
-    )
-    fig_gauge.add_annotation(
-        x=0.98, y=0.05, text="Extreme Greed",
-        showarrow=False, font=dict(size=9, color="#00C805"),
-        xref="paper", yref="paper", align="center"
-    )
-
-    # Single update_layout — removed duplicate
-    fig_gauge.update_layout(
-        height=400,
-        margin=dict(t=80, b=60, l=80, r=80)
-    )
-    col2.plotly_chart(fig_gauge, use_container_width=True)
+    # Right column — legend table
+    with col3:
+        st.markdown("""
+        <div style='padding-top:30px'>
+            <p style='color:gray;margin-bottom:8px;font-size:13px'><b>Scale Guide</b></p>
+            <p style='margin:4px 0;font-size:12px'><span style='color:#00C805'>●</span> 60 to 100 &nbsp; Extreme Greed</p>
+            <p style='margin:4px 0;font-size:12px'><span style='color:#8BC34A'>●</span> 20 to 60 &nbsp;&nbsp; Greed</p>
+            <p style='margin:4px 0;font-size:12px'><span style='color:#888888'>●</span> -20 to 20 &nbsp; Neutral</p>
+            <p style='margin:4px 0;font-size:12px'><span style='color:#FF9800'>●</span> -60 to -20 &nbsp;Fear</p>
+            <p style='margin:4px 0;font-size:12px'><span style='color:#FF4444'>●</span> -100 to -60 Extreme Fear</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 st.markdown("---")
 
