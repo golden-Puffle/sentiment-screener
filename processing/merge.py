@@ -8,7 +8,9 @@ def get_merged_data(ticker):
     
     # Fix duplicate rows bug
     prices = prices.drop_duplicates(subset=['Date'], keep='last')
-
+    prices = prices.sort_values('Date').reset_index(drop=True)
+    prices = prices.dropna(subset=['Close'])
+    
     sentiment = read_table("daily_sentiment")
     sentiment = sentiment[sentiment['ticker'] == ticker]
     sentiment['date'] = pd.to_datetime(sentiment['date']).dt.date
